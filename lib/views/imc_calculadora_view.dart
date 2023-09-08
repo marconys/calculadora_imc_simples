@@ -1,4 +1,5 @@
 import 'package:calculadora_imc/models/imc.dart';
+import 'package:calculadora_imc/services/app_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
@@ -13,13 +14,28 @@ class CacluladoraImc extends StatefulWidget {
 }
 
 class _CacluladoraImcState extends State<CacluladoraImc> {
-  var controllerPeso = TextEditingController();
-  var controllerAltura = TextEditingController();
+  var controllerPeso = TextEditingController(text: '');
+  var controllerAltura = TextEditingController(text: '');
+
+  AppStorageService storage = AppStorageService();
+
+  @override
+  void initState() {
+    super.initState();
+    carregarAltura();
+  }
+
+  carregarAltura() async {
+    double altura = await storage.getAltura();
+    setState(() {
+      controllerAltura.text = altura.toString() ?? '';
+    });
+  }
 
   void irParaResultadoImc(BuildContext context) {
     Imc imcResult = Imc(
         double.parse(controllerPeso.text), double.parse(controllerAltura.text));
-    widget.onCalculationComplete(imcResult, 1); // Navega para a próxima página
+    widget.onCalculationComplete(imcResult, 1);
   }
 
   @override
@@ -34,8 +50,6 @@ class _CacluladoraImcState extends State<CacluladoraImc> {
               const SizedBox(height: 20),
               ElevatedButton(
                   onPressed: () {
-                    controllerPeso.text = '';
-                    controllerAltura.text = '';
                     showDialog(
                         context: context,
                         builder: (BuildContext bc) {
@@ -76,7 +90,7 @@ class _CacluladoraImcState extends State<CacluladoraImc> {
                                   },
                                   child: const Text('Cancelar')),
                               TextButton(
-                                  onPressed: () {
+                                  onPressed: () async {
                                     if (controllerPeso.text.isEmpty ||
                                         controllerAltura.text.isEmpty) {
                                       ScaffoldMessenger.of(context)
@@ -87,6 +101,7 @@ class _CacluladoraImcState extends State<CacluladoraImc> {
                                         ),
                                       );
                                     } else {
+                                      await storage.setAltura(double.parse(controllerAltura.text));
                                       irParaResultadoImc(context);
                                       Navigator.pop(context);
                                     }

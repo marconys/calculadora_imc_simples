@@ -18,6 +18,12 @@ class _HomeViewState extends State<HomeView> {
   var imcRepository = ImcRepository();
   late List<Imc> dadosImc = [];
 
+  @override
+  void initState() {
+    super.initState();
+    dadosImc = []; // Inicialize a lista de dadosImc
+  }
+
   void adicionarImcAoRepositorio(Imc imc) async {
     await imcRepository.adicionarImc(imc);
     final listaAtualizada = await imcRepository.listarImc();
@@ -31,13 +37,7 @@ class _HomeViewState extends State<HomeView> {
       positionPage = index;
       pageController.jumpToPage(index);
     });
-  }
-
-   @override
-  void initState() {
-    super.initState();
-    dadosImc = []; // Inicialize a lista de dadosImc
-  }
+  }   
 
   @override
   Widget build(BuildContext context) {
