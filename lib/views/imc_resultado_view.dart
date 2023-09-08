@@ -2,8 +2,8 @@ import 'package:calculadora_imc/models/imc.dart';
 import 'package:flutter/material.dart';
 
 class ImcResultado extends StatefulWidget {
-   final List<Imc> dadosImc;
-   const ImcResultado({Key? key, required this.dadosImc}) : super(key: key);
+  final List<Imc> dadosImc;
+  const ImcResultado({Key? key, required this.dadosImc}) : super(key: key);
 
   @override
   State<ImcResultado> createState() => _ImcResultadoState();

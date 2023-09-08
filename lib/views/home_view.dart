@@ -1,5 +1,5 @@
 import 'package:calculadora_imc/models/imc.dart';
-import 'package:calculadora_imc/repositories/imc_repository.dart';
+import 'package:calculadora_imc/repositories/sqlite/imc_sqlite_repository.dart';
 import 'package:calculadora_imc/views/imc_calculadora_view.dart';
 import 'package:calculadora_imc/views/imc_resultado_view.dart';
 import 'package:flutter/material.dart';
@@ -15,20 +15,24 @@ class _HomeViewState extends State<HomeView> {
   PageController pageController = PageController(initialPage: 0);
   int positionPage = 0;
 
-  var imcRepository = ImcRepository();
+  var imcSQLiteRepository = ImcSQLiteRepository();
   late List<Imc> dadosImc = [];
 
   @override
   void initState() {
     super.initState();
-    dadosImc = []; // Inicialize a lista de dadosImc
+    carregarDadosImc();
   }
 
   void adicionarImcAoRepositorio(Imc imc) async {
-    await imcRepository.adicionarImc(imc);
-    final listaAtualizada = await imcRepository.listarImc();
+    await imcSQLiteRepository.salvarImc(imc);
+    carregarDadosImc();
+  }
+
+  void carregarDadosImc() async {
+    final listaAtualizada = await imcSQLiteRepository.obterResultadosImc();
     setState(() {
-       dadosImc = listaAtualizada;
+      dadosImc = listaAtualizada;
     });
   }
 
@@ -37,7 +41,7 @@ class _HomeViewState extends State<HomeView> {
       positionPage = index;
       pageController.jumpToPage(index);
     });
-  }   
+  }
 
   @override
   Widget build(BuildContext context) {

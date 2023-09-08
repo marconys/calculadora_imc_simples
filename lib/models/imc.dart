@@ -1,17 +1,15 @@
 import 'dart:math';
 
-import 'package:flutter/material.dart';
-
 class Imc {
-  final String _id = UniqueKey().toString();
+   int _id;
    double _peso;
    double _altura;
 
   //Contrutor
-  Imc(this._peso, this._altura);
+  Imc(this._id, this._peso, this._altura);
 
   //Geter and Seters
-  String get id => _id;
+  int get id => _id;
 
   double get peso => _peso;
 
