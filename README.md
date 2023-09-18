@@ -1,16 +1,16 @@
 # calculadora_imc
 
-A new Flutter project.
+Projeto desenvolvido como atividade do Santander Bootcamp 2023 - Mobile Com Flutter.
 
 ## Getting Started
 
-This project is a starting point for a Flutter application.
+Este é um projeto de uma calculadora de IMC simples, desenvolvida em Flutter e Dart. Esta aplicação utiliza o conceito de persistência de dados localmente, fazendo uso de pacotes do Flutter, como o shared_preferences, para armazenar a altura do usuário. Isso permite manter o campo de altura sempre preenchido, economizando tempo nas avaliações subsequentes, já que o usuário só precisa informar o seu peso.
 
-A few resources to get you started if this is your first Flutter project:
+Além disso, a aplicação utiliza o sqflite para armazenar e listar todos os IMCs do usuário localmente.
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+No processo de utilização da aplicação, o usuário entra com seus dados de peso e altura. Ao clicar em calcular o seu IMC, o resultado é calculado e armazenado localmente usando o sqflite. Em seguida, o IMC calculado é apresentado na view de resultados em uma lista. Isso permite que o usuário acompanhe a sua evolução ao longo do tempo.
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+## Resultado
+
+https://github.com/marconys/calculadora_imc_simples/assets/90052315/ae338c58-2b96-4ad0-9010-058f74cdbf4b
+
